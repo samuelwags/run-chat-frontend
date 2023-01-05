@@ -1,23 +1,16 @@
 import { FlexBox } from 'components/FlexBox'
-import { Logout } from 'components/Logout'
+import { Layout } from 'components/Layout'
 import { Runs } from 'components/Runs'
-import Head from 'next/head'
+import { useRuns } from 'hooks/useRuns'
 import React from 'react'
 
 export default function Home() {
+  const [runs] = useRuns();
   return (
-    <>
-      <Head>
-        <title>Run Chat</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-      <main>
+    <Layout>
         <FlexBox gap={12} width='100%' direction='row'>
-          <Runs />
-          <Logout />
+          <Runs runs={runs} />
         </FlexBox>
-      </main>
-    </>
+    </Layout>
   )
 }

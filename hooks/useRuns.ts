@@ -1,8 +1,18 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { api_url } from '../helpers/constants';
 
-export const useRuns = (): [any[], ()=>void] => {
-  const [runs, setRuns] = useState([]);
+export type RunType = {
+  date?: string,
+  distance?: number,
+  description?: string,
+  time?: number,
+  user: {
+    user_name: string
+  }
+}
+
+export const useRuns = (): [RunType[], ()=>void] => {
+  const [runs, setRuns] = useState<RunType[]>([]);
 
   const fetchRuns = useCallback(
     () => {

@@ -1,4 +1,5 @@
 import { api_url } from 'helpers/constants';
+import { useRouter } from 'next/router';
 import React, { useCallback, useEffect, useState } from 'react';
 
 type Session = {
@@ -8,6 +9,7 @@ type Session = {
 
 export const useSession = (): Session | undefined => {
   const [session, setSession] = useState<Session>();
+  const router = useRouter();
 
   const fetchSession = useCallback(
     () => {
@@ -16,7 +18,10 @@ export const useSession = (): Session | undefined => {
         credentials: 'include'
       })
       .then( (res) => res.json())
-      .then( (data) => setSession(data as Session))
+      .then( (data) => {
+        if (data?.errors) router.push('/login');
+        else setSession(data as Session);
+      })
     }, []);
   
   useEffect(fetchSession, []);

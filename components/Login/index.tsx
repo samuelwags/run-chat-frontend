@@ -1,10 +1,14 @@
-import { Button, TextField } from '@mui/material'
+
+import { Button } from 'components/Button';
+import { TextField } from 'components/TextField';
+import { useRouter } from 'next/router';
 import React, { useCallback, useMemo, useState } from 'react'
 import { api_url } from '../../helpers/constants';
 import { FlexBox } from '../FlexBox'
 
 
 export const Login = () => {
+  const router = useRouter();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
@@ -18,7 +22,9 @@ export const Login = () => {
       body: JSON.stringify({username, password})
     })
     .then((response) => response.json())
-    .then((data) => console.log('Success', data))
+    .then((data) => {
+      if (!data?.errors) router.push('/home');
+    })
     .catch((err) => console.log('Error', err))
   }, [username, password]);
 
@@ -33,18 +39,15 @@ export const Login = () => {
       <TextField
         id="password"
         label="Password"
-        type="password"
-        autoComplete="current-password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
+        type='password'
       />
 
       <Button
-        variant='outlined'
+        label='Login'
         onClick={submit}
-      >
-        TEST
-      </Button>
+      />
     </FlexBox>
   )
 };

@@ -1,28 +1,19 @@
 import React from 'react'
-import { useRuns } from 'hooks/useRuns';
-import Run from 'components/Run';
-import { Button } from '@mui/material';
+import { RunType } from 'hooks/useRuns';
 import { FlexBox } from 'components/FlexBox';
+import { Run } from 'components/Run';
 
-export const Runs = () => {
-
-  const [ runs, refetch ] = useRuns();
-
-  console.log(runs);
-
+export const Runs = ({
+  runs
+}: {
+  runs: RunType[]
+}) => {
   return (
     <FlexBox 
       direction='column' 
-      gap={24} 
-      width='25%'
+      gap={24}
     >
-      <Button
-        variant='outlined'
-        onClick={refetch}
-      >
-        Refetch runs
-      </Button>
-      { runs.map( run => <Run />) }
+      { runs.map( run => <Run run={run} />) }
     </FlexBox>
   )
 }
