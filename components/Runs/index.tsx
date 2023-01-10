@@ -13,7 +13,7 @@ export const Runs = ({
       direction='column' 
       gap={24}
     >
-      { runs.map( run => <Run run={run} />) }
+      { runs.map( run => <Run run={run} key={run.id} />) }
     </FlexBox>
   )
 }

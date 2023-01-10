@@ -1,14 +1,21 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { api_url } from '../helpers/constants';
 
+export type PRType = {
+  category: 'distance' | 'average' | 'split';
+  run_id: number,
+  user_is: number
+}
+
 export type RunType = {
   date?: string,
   distance?: number,
   description?: string,
-  time?: number,
+  id: string,
   user: {
     user_name: string
   }
+  time?: number,
 }
 
 export const useRuns = (): [RunType[], ()=>void] => {

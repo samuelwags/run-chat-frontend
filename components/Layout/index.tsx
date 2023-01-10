@@ -9,8 +9,14 @@ const Page = styled.div`
   padding: 24px;
 `
 
-export const Layout = ({children}: {children: ReactNode}) => {
-  const session = useSession();
+export const Layout = ({
+  unprotected = false,
+  children
+}: {
+  unprotected?: boolean;
+  children: ReactNode;
+}) => {
+  const session = useSession(unprotected);
 
   return (
     <>

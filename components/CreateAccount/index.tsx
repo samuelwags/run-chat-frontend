@@ -7,23 +7,33 @@ import { api_url } from 'helpers/constants';
 import { FlexBox } from 'components/FlexBox'
 
 
-export const Login = () => {
+export const CreateAccount = ({
+  inviteKey
+}: {
+  inviteKey: string
+}) => {
   const router = useRouter();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState<string[]>([]);
 
   const submit = useCallback(() => {
-    fetch(`${api_url}/auth/login`, {
+    fetch(`${api_url}/auth/create`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
       credentials: 'include',
-      body: JSON.stringify({username, password})
+      body: JSON.stringify({
+        username,
+        password,
+        inviteKey
+      })
     })
     .then((response) => response.json())
     .then((data) => {
-      if (!data?.errors) router.push('/');
+      if (!data?.error) router.push('/');
+      if (data?.error) setError(data?.error);
     })
     .catch((err) => console.log('Error', err))
   }, [username, password]);
@@ -45,9 +55,10 @@ export const Login = () => {
       />
 
       <Button
-        label='Login'
+        label='Create Account'
         onClick={submit}
       />
+      {error && <div>{error}</div>}
     </FlexBox>
   )
 };

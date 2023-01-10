@@ -7,7 +7,9 @@ type Session = {
   user_name: string
 }
 
-export const useSession = (): Session | undefined => {
+export const useSession = (skip = false): Session | undefined => {
+  if (skip) return undefined;
+
   const [session, setSession] = useState<Session>();
   const router = useRouter();
 
