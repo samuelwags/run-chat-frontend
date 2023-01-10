@@ -30,8 +30,11 @@ export const Run = ({
     });
 
     const unitTypes = ['hours', 'minutes'] as DurationUnitType[];
-    return unitTypes
-      .filter( key =>  time.get(key) > 0 )
+    const nonZeroUnits = unitTypes.filter( key =>  time.get(key) > 0 );
+
+    if (nonZeroUnits.length === 0) return 'under a minute';
+
+    return nonZeroUnits
       .map( key => dayjs.duration(time.get(key), key).humanize())
       .join(' and ');
   }, [run]);
@@ -44,14 +47,16 @@ export const Run = ({
     return `${run.distance} miles`;
   }, [run])
 
-
+  const prs = Object.entries(run.prs)
+    .filter( ([cat, pr]) => !!pr )
 
   return (
     <Container>
       <FlexBox gap={6} direction='column'>
-        {run?.date && <Label text={run.date}/>}
+        {run?.date && <Label text={dayjs(run.date).format('MM/DD/YYYY')}/>}
         <p>{run?.user?.user_name} ran {distanceString} in {timeString}</p>
         {run?.description && <p>+ {run.description}</p>}
+        {prs.map(([cat, pr]) => `${cat.toUpperCase()} PR!`).join(' — ')}
       </FlexBox>
     </Container>
   )

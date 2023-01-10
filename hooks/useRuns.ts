@@ -4,18 +4,23 @@ import { api_url } from '../helpers/constants';
 export type PRType = {
   category: 'distance' | 'average' | 'split';
   run_id: number,
-  user_is: number
+  user_id: number
 }
 
 export type RunType = {
-  date?: string,
-  distance?: number,
-  description?: string,
-  id: string,
+  date?: string;
+  distance?: number;
+  description?: string;
+  id: string;
+  prs: {
+    average?: PRType,
+    split?: PRType,
+    distance?: PRType
+  }
   user: {
     user_name: string
-  }
-  time?: number,
+  };
+  time?: number;
 }
 
 export const useRuns = (): [RunType[], ()=>void] => {
