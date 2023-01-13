@@ -1,4 +1,5 @@
 import { FlexBox } from 'components/FlexBox';
+import { Tag } from 'components/Tag';
 import { Label } from 'components/Typography/Label';
 import dayjs from 'dayjs';
 import duration, { DurationUnitType } from 'dayjs/plugin/duration';
@@ -53,10 +54,15 @@ export const Run = ({
   return (
     <Container>
       <FlexBox gap={6} direction='column'>
+        {prs.length > 0 && (
+          <FlexBox gap={6} direction='row' height='30px' align='start'>
+            {prs.map(([cat, pr]) => <Tag text={`${cat.toUpperCase()} PR!`} />)}
+          </FlexBox>
+        )}
         {run?.date && <Label text={dayjs(run.date).format('MM/DD/YYYY')}/>}
+        
         <p>{run?.user?.user_name} ran {distanceString} in {timeString}</p>
         {run?.description && <p>+ {run.description}</p>}
-        {prs.map(([cat, pr]) => `${cat.toUpperCase()} PR!`).join(' — ')}
       </FlexBox>
     </Container>
   )
