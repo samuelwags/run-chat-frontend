@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const FlexBox = styled.div<{
-  gap: number, 
+  gap?: number, 
   direction?: 'column' | 'row',
   width?: string,
   height?: string,
@@ -10,7 +10,7 @@ export const FlexBox = styled.div<{
 }>`
   display: flex;
   flex-direction: ${({direction}) => direction || 'row'};
-  gap: ${({gap}) => gap}px;
+  gap: ${({gap}) => gap ? gap : 0}px;
 
   width: ${({width}) => width || '100%'};
   ${({height}) => height ? `height: ${height};` : ``}

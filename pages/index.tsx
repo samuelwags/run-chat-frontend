@@ -6,12 +6,10 @@ import { useRuns } from 'hooks/useRuns'
 import React from 'react'
 
 export default function Home() {
-  const [runs] = useRuns();
   return (
     <Layout>
         <FlexBox gap={50} width='100%' direction='row'>
-          <Runs runs={runs} />
-          <WeeklyMileage />
+          <Runs />
         </FlexBox>
     </Layout>
   )

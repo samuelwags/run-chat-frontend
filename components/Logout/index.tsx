@@ -16,7 +16,6 @@ export const Logout = () => {
     })
     .then((response) => response.json())
     .then((data) => {
-      console.log('data');
       if (!data?.errors) router.push('/login');
     })
     .catch((err) => console.log('Error', err))

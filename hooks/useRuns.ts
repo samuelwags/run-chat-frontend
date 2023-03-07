@@ -24,7 +24,7 @@ export type RunType = {
 }
 
 export const useRuns = (): [RunType[], ()=>void] => {
-  const [runs, setRuns] = useState<RunType[]>([]);
+  const [runs, setRuns] = useState<RunType[]>();
 
   const fetchRuns = useCallback(
     () => {
@@ -34,9 +34,11 @@ export const useRuns = (): [RunType[], ()=>void] => {
       })
       .then( (res) => res.json())
       .then( (data) => Array.isArray(data) ? setRuns(data) : setRuns([]))
-    }, []);
+    }, [setRuns]);
   
-  useEffect(fetchRuns, []);
+  useEffect(() => {
+    if (!runs) fetchRuns();
+  }, [runs]);
 
-  return [runs, fetchRuns]
+  return [runs || [], fetchRuns]
 }

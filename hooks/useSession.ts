@@ -4,7 +4,8 @@ import React, { useCallback, useEffect, useState } from 'react';
 
 type Session = {
   is_logged_in: boolean,
-  user_name: string
+  user_name: string,
+  user_id: string
 }
 
 export const useSession = (skip = false): Session | undefined => {
@@ -26,7 +27,9 @@ export const useSession = (skip = false): Session | undefined => {
       })
     }, []);
   
-  useEffect(fetchSession, []);
+  useEffect(() => {
+    if (!session) fetchSession();
+  }, [session]);
 
   return session;
 }

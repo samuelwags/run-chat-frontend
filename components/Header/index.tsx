@@ -5,10 +5,6 @@ import { useRouter } from 'next/router';
 import React from 'react';
 import styled from 'styled-components';
 
-const HeaderButtons = styled.div`
-
-`
-
 const FlexSpacer = styled.div`
   flex-grow: 1;
 `
@@ -22,13 +18,16 @@ export const Header = ({
 
   return (
     <FlexBox gap={24}>
-      <h2 style={{color: 'olive'}}>Run Chat</h2>
+      <h2
+        onClick={() => router.push('/')}
+        style={{color: 'olive'}}
+      >Run Chat</h2>
       {loggedIn && (
         <>
           <FlexSpacer />
           <Button 
-            label='Add Run'
-            onClick={() => router.push('/addRun')}
+            label='My Profile'
+            onClick={() => router.push('/profile')}
           />
           <Logout />
         </>

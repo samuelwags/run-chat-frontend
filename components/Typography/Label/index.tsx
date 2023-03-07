@@ -9,3 +9,7 @@ const BoldSpan = styled.span`
 `
 
 export const Label = ({text}: {text: string}) => <BoldSpan>{text}</BoldSpan>
+
+export const SmallBody = styled.p`
+  font-size: 0.8rem;
+`
