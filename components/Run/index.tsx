@@ -56,7 +56,7 @@ export const Run = ({
       <FlexBox gap={6} direction='column'>
         {prs.length > 0 && (
           <FlexBox gap={6} direction='row' height='30px' align='start'>
-            {prs.map(([cat, pr]) => <Tag text={`${cat.toUpperCase()} PR!`} />)}
+            {prs.map(([cat, pr]) => <Tag key={cat} text={`${cat.toUpperCase()} PR!`} />)}
           </FlexBox>
         )}
         {run?.date && <Label text={dayjs(run.date).format('MM/DD/YYYY')}/>}

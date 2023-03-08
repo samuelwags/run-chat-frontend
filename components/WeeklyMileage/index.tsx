@@ -50,7 +50,7 @@ export const WeeklyMileage = () => {
           <Tile 
             label={`${sunday.format('MM/DD')} – ${saturday.format('MM/DD')}`}>
             {items.map( item => (
-              <FlexBox direction='column' gap={2} align='center'>
+              <FlexBox key={item.label} direction='column' gap={2} align='center'>
                 <p>{item.label}</p>
                 <h2>{item.value}</h2>
               </FlexBox>

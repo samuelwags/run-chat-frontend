@@ -22,7 +22,7 @@ export default function ProfilePage() {
       >
         <h4>Training Plans</h4>
         { user && user?.training_plans?.map( plan => (
-          <p><Link href={`/trainingPlan/${plan.id}`}>{plan.name}</Link></p>
+          <p key={plan.id}><Link href={`/trainingPlan/${plan.id}`}>{plan.name}</Link></p>
         ))}
         <IconButton
           onClick={() => router.push('/trainingPlan/new')}

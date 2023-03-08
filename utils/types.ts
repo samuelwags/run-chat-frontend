@@ -1,0 +1,1 @@
+export const notNullOrUndefined = <T>(item: T | null | undefined): item is T => !!item;

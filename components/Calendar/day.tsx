@@ -43,7 +43,7 @@ export default function Day({
   children: ReactNode;
   day: Dayjs;
   outOfMonth?: boolean;
-  buttons?: ReactElement[] | null
+  buttons: ReactElement[] | null
 }) {
   return (
     <DayContainer dim={!!outOfMonth}>

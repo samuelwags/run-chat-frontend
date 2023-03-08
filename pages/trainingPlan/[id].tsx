@@ -13,6 +13,7 @@ import { useTrainingPlan } from "hooks/useTrainingPlan";
 import { useRouter } from "next/router";
 import { useCallback, useMemo, useState } from "react";
 import styled from "styled-components";
+import { notNullOrUndefined } from "utils/types";
 
 const ButtonContainer = styled.div`
   position: absolute;
@@ -43,11 +44,12 @@ export default function TrainingPlanPage() {
 
     if (plannedRuns.length) {
       return plannedRuns.map( run => past ? (
-          <SmallBody 
+          <SmallBody
+            key={run.id}
             style={{color: run.completed ? 'green' : 'red'}}
           >{run.completed ? '✓' : '⊗'} {run.user.user_name}: {run.distance} miles</SmallBody>
         ): (
-          <SmallBody>{run.user.user_name}: {run.distance} miles</SmallBody>
+          <SmallBody key={run.id}>{run.user.user_name}: {run.distance} miles</SmallBody>
         )
       )
     }
@@ -57,12 +59,13 @@ export default function TrainingPlanPage() {
   const getButtons = useCallback((day: Dayjs) => {
     const past = dayjs().isAfter(day);
     if (!past) return (
-      <IconButton 
+      [<IconButton 
+        key='add-run'
         onClick={() => {
           setSelectedDate(day);
           openAddPlannedRun();
         }}
-      />
+      />]
     );
     else return null;
   }, [])
@@ -70,10 +73,7 @@ export default function TrainingPlanPage() {
   const members = useMemo(() => [
     trainingPlan?.user,
     ...(trainingPlan?.members || [])
-  ], [trainingPlan]);
-
-  
-  
+  ].filter(notNullOrUndefined), [trainingPlan]);
 
   return (
     <>
@@ -85,7 +85,7 @@ export default function TrainingPlanPage() {
         <Tile label={'Members'}>
           <FlexBox gap={16} align='center' justify="center">
             { members.map( member => (
-              <p>{member?.user_name}</p>
+              <p key={member.id}>{member?.user_name}</p>
             ))}
             <IconButton onClick={() => console.log('hi')} />
           </FlexBox>

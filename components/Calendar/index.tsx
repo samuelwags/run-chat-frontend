@@ -23,11 +23,11 @@ const CalendarGrid = styled.div`
 `
 
 export default function Calendar({
-  getButtons,
+  getButtons = (date) => null,
   getDayContents
 }: {
-  getButtons?: (arg0: Dayjs) => ReactElement | null
-  getDayContents?: (arg0: Dayjs) => ReactElement | null
+  getButtons?: (arg0: Dayjs) => ReactElement[] | null
+  getDayContents?: (arg0: Dayjs) => ReactElement[] | null
 }) {
   const [month, setMonth] = useState<Month>(dayjs().month() as Month);
   const [year, setYear] = useState<Year>(dayjs().year() as Year);
@@ -88,7 +88,7 @@ export default function Calendar({
       </FlexBox>
       <CalendarGrid>
         {dates.map( date => (
-          <Day buttons={getButtons?.(date)} day={date} outOfMonth={date.month() !== month}>
+          <Day key={date.toString()} buttons={getButtons(date)} day={date} outOfMonth={date.month() !== month}>
             {getDayContents?.(date)}
           </Day>
         ))}
