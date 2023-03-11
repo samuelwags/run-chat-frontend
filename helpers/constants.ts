@@ -1,2 +1,2 @@
 // export const api_url = 'http://localhost:3000'
-export const api_url = 'https://immense-earth-13722.herokuapp.com'
+export const api_url = 'https://api.runchat.net'
